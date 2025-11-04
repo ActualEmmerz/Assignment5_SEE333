@@ -1,4 +1,4 @@
-package org.example.Barnes.Amazon;
+package org.example.Amazon;
 
 public class AmazonIntegrationTest {
 }

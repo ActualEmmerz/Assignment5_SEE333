@@ -1,5 +1,6 @@
 package org.example.Barnes;
 
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,13 +13,13 @@ public class BarnesTest {
 
     static class StubBookDb implements BookDatabase {
         @Override
-        public Book findByISBN(String ISBM){
+        public Book findByISBN(String ISBN){
             if ("111".equals(ISBN)) return new Book ("111", 10, 100);
             return null;
         }
     }
 
-    static class StubBuyProcess implements BuyBookProces {
+    static class StubBuyProcess implements BuyBookProcess {
         int lastAmount = -1;
         Book lastBook = null;
         @Override
@@ -30,7 +31,7 @@ public class BarnesTest {
 
     @Test
     @DisplayName("specification-based")
-    /**for when a book exists and the price is quantity times unit price**/
+    /*for when a book exists and the price is quantity times unit price*/
     void priceIsQuantityTimesUnitPrice(){
         var db = new StubBookDb();
         var proc = new StubBuyProcess();
@@ -49,7 +50,7 @@ public class BarnesTest {
 
     @Test
     @DisplayName("structural-based")
-    /** **/
+    /*For when marks unavailable when book is missing while returning null for null cart */
     void returnsNullForNullCart(){
         var db = new StubBookDb(){
             @Override public Book findByISBN(String ISBN) { return null; }
