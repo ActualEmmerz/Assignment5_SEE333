@@ -52,16 +52,14 @@ public class BarnesTest {
     @DisplayName("structural-based")
     /*For when marks unavailable when book is missing while returning null for null cart */
     void returnsNullForNullCart(){
-        var db = new StubBookDb(){
-            @Override public Book findByISBN(String ISBN) { return null; }
-
-        };
+        var db = new StubBookDb();
         var proc = new StubBuyProcess();
         var store = new BarnesAndNoble(db, proc);
         assertNull(store.getPriceForCart(null));
         Map<String, Integer> order = new HashMap<>();
         order.put("999", 2);
         PurchaseSummary result = store.getPriceForCart(order);
+        assertNotNull(result);
         assertEquals(0, result.getTotalPrice());
         assertFalse(result.getUnavailable().isEmpty());
     }
